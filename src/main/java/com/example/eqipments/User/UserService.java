@@ -3,8 +3,11 @@ package com.example.eqipments.User;
 import com.example.eqipments.Exeption.DuplicateExeption;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Service
 public class UserService {
     private final UserRepository userRepository;
@@ -15,13 +18,14 @@ public class UserService {
         this.userMaper = userMaper;
     }
 
-    List<UserDto> findAll(){
+    Set<UserDto> findAll(){
         return   userRepository.findAll().stream()
-                .map(userMaper::map).toList();
+                .map(userMaper::map).collect(Collectors.toSet());
 
     }
-    List<UserDto>findByLastName(String lastName){
-        return userRepository.findByLastNameContainingIgnoreCase(lastName).stream().map(userMaper::map).toList();
+    Set<UserDto> findByLastName(String lastName){
+        return userRepository.findByLastNameContainingIgnoreCase(lastName).stream().map(userMaper::map)
+                .collect(Collectors.toSet());
     }
     Optional<UserDto> findBylastName(String lastName){
         return userRepository.findByLastNameIgnoreCase(lastName).map(userMaper::map);

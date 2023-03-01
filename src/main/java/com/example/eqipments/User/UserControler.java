@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/users")
@@ -16,11 +18,11 @@ public class UserControler {
         this.userService = userService;
     }
     @GetMapping()
-    ResponseEntity<List<UserDto>> allUsers(@RequestParam(required = false)@PathVariable String lastName){
+    ResponseEntity<Set<UserDto>> allUsers(@RequestParam(required = false)@PathVariable String lastName){
         if (lastName==null) {
             return ResponseEntity.ok(userService.findAll());
         }
-        return ResponseEntity.ok(userService.findByLastName(lastName).stream().toList());
+        return ResponseEntity.ok(new HashSet<>(userService.findByLastName(lastName)));
     }
     @GetMapping("/{lastName}")
     ResponseEntity<UserDto> findByLastna(@PathVariable String lastName){
