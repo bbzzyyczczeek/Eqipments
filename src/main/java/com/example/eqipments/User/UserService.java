@@ -1,5 +1,6 @@
 package com.example.eqipments.User;
 
+import com.example.eqipments.Exeption.DuplicateExeption;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,4 +27,14 @@ public class UserService {
         return userRepository.findByLastNameIgnoreCase(lastName).map(userMaper::map);
 
     }
+    UserDto addUser(UserDto userDto){
+        Optional<User> byPesel = userRepository.findByPesel(userDto.getPesel());
+        byPesel.ifPresent(p->{throw new DuplicateExeption();
+        });
+
+        User add = userMaper.map(userDto);
+        User save = userRepository.save(add);
+        return userMaper.map(save);
+    }
+
 }

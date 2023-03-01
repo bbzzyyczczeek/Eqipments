@@ -14,6 +14,7 @@ public class User {
     private long id;
     private String firstName;
     private String lastName;
+    @Column(unique = true)
     private String pesel;
     private String telephoneNumber;
     @ManyToMany

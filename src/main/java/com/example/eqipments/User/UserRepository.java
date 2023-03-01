@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User,Long> {
     Optional<User> findByLastNameIgnoreCase(String lastName);
     List<User> findByLastNameContainingIgnoreCase(String lastName);
+    Optional<User>findByPesel(String pesel);
 }
