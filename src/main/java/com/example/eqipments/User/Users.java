@@ -3,12 +3,13 @@ package com.example.eqipments.User;
 import com.example.eqipments.Equipments.Equipments;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "users")
-public class User {
+//@Table(name = "users")
+public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -17,10 +18,9 @@ public class User {
     @Column(unique = true)
     private String pesel;
     private String telephoneNumber;
-    @ManyToMany
-    private List<Equipments> equipment;
 
-    public User() {
+
+    public Users() {
     }
 
     public long getId() {
@@ -63,24 +63,18 @@ public class User {
         this.telephoneNumber = telephoneNumber;
     }
 
-    public List<Equipments> getEquipment() {
-        return equipment;
-    }
 
-    public void setEquipment(List<Equipments> equipment) {
-        this.equipment = equipment;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(pesel, user.pesel) && Objects.equals(telephoneNumber, user.telephoneNumber) && Objects.equals(equipment, user.equipment);
+        Users user = (Users) o;
+        return id == user.id && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(pesel, user.pesel) && Objects.equals(telephoneNumber, user.telephoneNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, pesel, telephoneNumber, equipment);
+        return Objects.hash(id, firstName, lastName, pesel, telephoneNumber);
     }
 }

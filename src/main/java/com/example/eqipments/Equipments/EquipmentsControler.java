@@ -6,6 +6,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/assets")
@@ -21,12 +22,16 @@ public class EquipmentsControler {
         if (name == null) {
             return ResponseEntity.ok(service.all());
         }
-      return   ResponseEntity.ok(service.findByNameContaining(name).stream().toList());
+      return   ResponseEntity.ok(service.findByNameOrSerialNumber(name).stream().toList());
 
     }
-    @GetMapping("/names")
-    List<String>allCategoty(){
+    @GetMapping("/category")
+    Set<String> allCategoty(){
         return service.findByCategoty();
+    }
+    @GetMapping("/{id}")
+    ResponseEntity<EquipmentsDto>findById(@PathVariable long id){
+        return service.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
     @PostMapping
     ResponseEntity<EquipmentsDto>addEquipment(@RequestBody EquipmentsDto dto){

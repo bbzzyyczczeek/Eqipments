@@ -1,6 +1,6 @@
 package com.example.eqipments.User;
 
-import com.example.eqipments.Exeption.DuplicateExeption;
+import com.example.eqipments.Exeption.DuplicatePeselExeption;
 import org.springframework.stereotype.Service;
 
 
@@ -32,12 +32,12 @@ public class UserService {
 
     }
     UserDto addUser(UserDto userDto){
-        Optional<User> byPesel = userRepository.findByPesel(userDto.getPesel());
-        byPesel.ifPresent(p->{throw new DuplicateExeption();
+        Optional<Users> byPesel = userRepository.findByPesel(userDto.getPesel());
+        byPesel.ifPresent(p->{throw new DuplicatePeselExeption();
         });
 
-        User add = userMaper.map(userDto);
-        User save = userRepository.save(add);
+        Users add = userMaper.map(userDto);
+        Users save = userRepository.save(add);
         return userMaper.map(save);
     }
 
