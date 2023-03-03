@@ -1,6 +1,7 @@
 package com.example.eqipments.User;
 
 import com.example.eqipments.Equipments.Equipments;
+import com.example.eqipments.Rental.Rental;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ public class Users {
     @Column(unique = true)
     private String pesel;
     private String telephoneNumber;
+    @OneToMany(mappedBy = "users")
+   List<Rental>rentals;
 
 
     public Users() {
@@ -63,7 +66,13 @@ public class Users {
         this.telephoneNumber = telephoneNumber;
     }
 
+    public List<Rental> getRentals() {
+        return rentals;
+    }
 
+    public void setRentals(List<Rental> rentals) {
+        this.rentals = rentals;
+    }
 
     @Override
     public boolean equals(Object o) {

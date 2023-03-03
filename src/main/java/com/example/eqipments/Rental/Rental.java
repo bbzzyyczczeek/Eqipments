@@ -8,16 +8,18 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
+
+
 
 @Entity
 public class Rental {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private LocalDateTime start;
-    private long endTime;
+    private LocalDate start;
+
+    private LocalDate endTime ;
+
    @ManyToOne
  //  @JoinColumn(name = "wyporzyczalacy",referencedColumnName = "lastName")
   private   Users users;
@@ -35,19 +37,19 @@ public class Rental {
         this.id = id;
     }
 
-    public LocalDateTime getStart() {
+    public LocalDate getStart() {
         return start;
     }
 
-    public void setStart(LocalDateTime start) {
+    public void setStart(LocalDate start) {
         this.start = start;
     }
 
-    public long getEndTime() {
+    public LocalDate getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(long endTime) {
+    public void setEndTime(LocalDate endTime) {
         this.endTime = endTime;
     }
 
@@ -59,6 +61,11 @@ public class Rental {
         this.users = users;
     }
 
+    public Equipments getEquipments() {
+        return equipments;
+    }
 
-
+    public void setEquipments(Equipments equipments) {
+        this.equipments = equipments;
+    }
 }

@@ -16,6 +16,8 @@ public class Equipments {
     @Column(unique = true)
     private String serialNumber;
     private String category;
+    @ManyToOne
+    private Users users;
 
 
     public Equipments() {
