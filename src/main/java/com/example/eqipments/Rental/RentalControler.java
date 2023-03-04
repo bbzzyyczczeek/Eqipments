@@ -8,8 +8,8 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.time.LocalDate;
+
 
 @RestController
 @RequestMapping("/api/rent")
@@ -36,5 +36,10 @@ public class RentalControler {
                 .toUri();
         return ResponseEntity.created(uri).body(save);
 
+    }
+    @PostMapping("/{id}/return")
+    ResponseEntity<?>endRent(@PathVariable long id){
+        LocalDate localDate=rentalService.endRent(id);
+        return ResponseEntity.accepted().body(localDate);
     }
 }

@@ -19,6 +19,7 @@ public class Rental {
     private LocalDate start;
 
     private LocalDate endTime ;
+    private  String wyporzyczone;
 
    @ManyToOne
  //  @JoinColumn(name = "wyporzyczalacy",referencedColumnName = "lastName")
@@ -47,6 +48,14 @@ public class Rental {
 
     public LocalDate getEndTime() {
         return endTime;
+    }
+
+    public String getWyporzyczone() {
+        return wyporzyczone;
+    }
+
+    public void setWyporzyczone(String wyporzyczone) {
+        this.wyporzyczone = wyporzyczone;
     }
 
     public void setEndTime(LocalDate endTime) {

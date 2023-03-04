@@ -1,6 +1,6 @@
 package com.example.eqipments.Equipments;
 
-import com.example.eqipments.User.Users;
+
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -16,8 +16,7 @@ public class Equipments {
     @Column(unique = true)
     private String serialNumber;
     private String category;
-    @ManyToOne
-    private Users users;
+
 
 
     public Equipments() {

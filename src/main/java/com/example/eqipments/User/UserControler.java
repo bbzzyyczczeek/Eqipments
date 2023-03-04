@@ -7,7 +7,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping("/api/users")
@@ -25,7 +25,7 @@ public class UserControler {
         return ResponseEntity.ok(new HashSet<>(userService.findByLastName(lastName)));
     }
     @GetMapping("/{lastName}")
-    ResponseEntity<UserDto> findByLastna(@PathVariable String lastName){
+    ResponseEntity<UserDto> findByLastName(@PathVariable String lastName){
         return userService.findBylastName(lastName).map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }

@@ -6,6 +6,7 @@ public class RentalDto {
     private long id;
     private LocalDate start;
     private LocalDate endTime;
+    private  String wyporzyczone;
     private long equipmentsId;
     private long userId;
 
@@ -32,6 +33,14 @@ public class RentalDto {
 
     public void setEndTime(LocalDate endTime) {
         this.endTime = endTime;
+    }
+
+    public String getWyporzyczone() {
+        return wyporzyczone;
+    }
+
+    public void setWyporzyczone(String wyporzyczone) {
+        this.wyporzyczone = wyporzyczone;
     }
 
     public long getEquipmentsId() {

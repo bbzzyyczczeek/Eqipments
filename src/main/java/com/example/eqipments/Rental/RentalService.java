@@ -6,6 +6,7 @@ import com.example.eqipments.Exeption.NotFoundException;
 import com.example.eqipments.User.UserRepository;
 import com.example.eqipments.User.Users;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -24,14 +25,10 @@ public class RentalService {
         this.rentalRepository = rentalRepository;
         this.rentalMapper = rentalMapper;
     }
-  /*  List<RentalDto>getUserEquipments(long id){
-        return userRepository.findById(id).map(Users::getRentals)
-                .orElseThrow().stream().map(rentalMapper::map).toList();
 
-    }*/
     RentalDto rent(RentalDto rentalDto){
         Rental rental=new Rental();
-        Optional<Rental>findIfAvabile=rentalRepository.findByEquipmentsIdAndStartIsNotNull(rentalDto.getEquipmentsId());
+        Optional<Rental>findIfAvabile=rentalRepository.findByEquipmentsIdAndWyporzyczoneIsNotNull(rentalDto.getEquipmentsId());
         findIfAvabile.ifPresent((e)->{throw new NotFoundException("To wyposażenie jest wypozyczone");
         });
         long userId= rentalDto.getUserId();
@@ -43,10 +40,23 @@ public class RentalService {
         long equipmentId=rentalDto.getEquipmentsId();
         Equipments equipments = equipmentsRepository.findById(rentalDto.getEquipmentsId())
                 .orElseThrow(() -> new NotFoundException("Brak sprzetu o id " + equipmentId));
+        rental.setWyporzyczone("wyporzyczone");
         rental.setEquipments(equipments);
         rental.setStart(LocalDate.now());
-       // rental.setEndTime(0);
+
         Rental save = rentalRepository.save(rental);
         return rentalMapper.map(save);
+    }
+@Transactional
+    public LocalDate endRent(long id){
+    Rental rental = rentalRepository.findByEquipmentsIdAndWyporzyczoneIsNotNull(id)
+            .orElseThrow(()->new NotFoundException("Strzet jest na stanie"));
+
+
+        LocalDate now = LocalDate.now();
+        rental.setEndTime(now);
+        rental.setWyporzyczone(null);
+        return now;
+
     }
 }
