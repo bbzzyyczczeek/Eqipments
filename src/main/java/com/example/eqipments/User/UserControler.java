@@ -36,4 +36,9 @@ public class UserControler {
                 .path("/{id}").buildAndExpand(userAdd.getId()).toUri();
         return ResponseEntity.created(uri).body(userAdd);
     }
+    @DeleteMapping("/{id}")
+    ResponseEntity<?>deleteById(@PathVariable long id){
+        userService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 }

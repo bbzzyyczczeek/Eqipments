@@ -40,5 +40,8 @@ public class UserService {
         Users save = userRepository.save(add);
         return userMaper.map(save);
     }
+    public void deleteById(long id){
+        userRepository.deleteById(id);
+    }
 
 }
